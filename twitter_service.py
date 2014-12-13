@@ -16,7 +16,10 @@ follower = []
 
 def find_friends(username):
     user = api.get_user(username)
-    print "I am "+user.screen_name+"\n"
+    if username == api.me().screen_name:
+        print "I am "+username+"\n"
+    else:
+        print "Hello "+api.me().screen_name+". I am "+user.screen_name
     for friends in user.friends():
         list.append(friends.screen_name)
     print list
@@ -36,6 +39,8 @@ def update(status):
     if len(status) > 10 :
         if api.update_status(status):
             print "Status updated"
+    else:
+        print "Enter message between 10-140 characters"
 
 def message(username,text):
     sent = api.send_direct_message(screen_name=username,text=text)
